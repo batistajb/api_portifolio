@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+
+  postgresql:
+    image: timescale/timescaledb:latest-pg12
+    networks:
+      - backend
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./.docker/dbdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: $PGADMIN_DEFAULT_EMAIL
+      PGADMIN_DEFAULT_PASSWORD: $PGADMIN_DEFAULT_PASSWORD
+    ports:
+      - "16543:80"
+    depends_on:
+      - postgresql
+    networks:
+      - backend
+
+  app:
+    build: .
+    entrypoint: ./.docker/entrypoint.sh
+    container_name: api_nestjs
+    networks:
+      - backend
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgresql
+    volumes:
+      - .:/home/node/app
+
+networks:
+  backend:
