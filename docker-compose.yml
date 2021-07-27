@@ -4,6 +4,7 @@ services:
 
   postgresql:
     image: timescale/timescaledb:latest-pg12
+    container_name: postgresql
     networks:
       - backend
     ports:
@@ -25,10 +26,10 @@ services:
     networks:
       - backend
 
-  app:
+  api_portifolio_app:
     build: .
     entrypoint: ./.docker/entrypoint.sh
-    container_name: api_nestjs
+    container_name: api_portifolio_app
     networks:
       - backend
     environment:

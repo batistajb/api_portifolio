@@ -1,0 +1,24 @@
+type Cliente {
+  # Example field (placeholder)
+  exampleField: Int
+}
+
+input CreateClienteInput {
+  # Example field (placeholder)
+  exampleField: Int
+}
+
+input UpdateClienteInput {
+  id: Int!
+}
+
+type Query {
+  clientes: [Cliente]!
+  cliente(id: Int!): Cliente
+}
+
+type Mutation {
+  createCliente(createClienteInput: CreateClienteInput!): Cliente!
+  updateCliente(updateClienteInput: UpdateClienteInput!): Cliente!
+  removeCliente(id: Int!): Cliente
+}
