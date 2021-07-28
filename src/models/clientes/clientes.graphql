@@ -1,15 +1,15 @@
 type Cliente {
-  # Example field (placeholder)
-  exampleField: Int
+  id: Int,
+  email: String
 }
 
 input CreateClienteInput {
-  # Example field (placeholder)
-  exampleField: Int
+  email: String
 }
 
 input UpdateClienteInput {
-  id: Int!
+  id: Int!,
+  email: String
 }
 
 type Query {
